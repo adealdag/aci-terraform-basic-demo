@@ -1,7 +1,7 @@
 # Data Sources
 data "aci_vmm_domain" "vmmdom" {
   provider_profile_dn  = "uni/vmmp-VMware"
-  name                 = var.vmm_vcenter
+  name                 = "vmm_vds"
 }
 
 # App Profile Definition
@@ -98,7 +98,7 @@ resource "aci_epg_to_domain" "auth_epg_domain" {
 }
 
 resource "aci_any" "vzany" {
-  vrf_dn                            = aci_vrf.main.id
+  vrf_dn                            = aci_vrf.demo.id
   relation_vz_rs_any_to_cons        = [aci_contract.any_to_dns.id]
 }
 
