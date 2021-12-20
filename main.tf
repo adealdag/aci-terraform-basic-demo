@@ -18,3 +18,34 @@ provider "aci" {
   # cert_name = "labadmin.crt"
   insecure = true
 }
+
+### Tenant Definition
+
+resource "aci_tenant" "demo" {
+  name     = "demo_tn"
+}
+
+### Networking Definition
+
+# VRF
+resource "aci_vrf" "demo" {
+  tenant_dn = aci_tenant.demo.id
+  name      = "demo_vrf"
+}
+
+# Bridge Domain
+resource "aci_bridge_domain" "demo_bd01" {
+  tenant_dn          = aci_tenant.demo.id
+  name               = "192.168.1.0_24_bd"
+  arp_flood          = "yes"
+  unicast_route      = "yes"
+  unk_mac_ucast_act  = "proxy"
+  unk_mcast_act      = "flood"
+  relation_fv_rs_ctx = aci_vrf.demo.id
+}
+
+resource "aci_subnet" "demo_net01" {
+  parent_dn = aci_bridge_domain.demo_bd01.id
+  ip        = "92.168.1.1/24"
+  scope     = ["private"]
+}
