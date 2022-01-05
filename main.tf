@@ -26,7 +26,7 @@ provider "aci" {
 ### Tenant Definition
 
 resource "aci_tenant" "demo" {
-  name     = "demo_tn"
+  name = "demo_tn"
 }
 
 ### Networking Definition
@@ -50,7 +50,7 @@ resource "aci_bridge_domain" "demo_bd01" {
 
 resource "aci_subnet" "demo_net01" {
   parent_dn = aci_bridge_domain.demo_bd01.id
-  ip        = "92.168.1.1/24"
+  ip        = "192.168.1.1/24"
   scope     = ["private"]
 }
 
@@ -66,7 +66,7 @@ resource "aci_bridge_domain" "demo_bd02" {
 
 resource "aci_subnet" "demo_net02" {
   parent_dn = aci_bridge_domain.demo_bd02.id
-  ip        = "92.168.2.1/24"
+  ip        = "192.168.2.1/24"
   scope     = ["private"]
 }
 
@@ -82,7 +82,7 @@ resource "aci_bridge_domain" "demo_bd03" {
 
 resource "aci_subnet" "demo_net03" {
   parent_dn = aci_bridge_domain.demo_bd03.id
-  ip        = "92.168.3.1/24"
+  ip        = "192.168.3.1/24"
   scope     = ["private"]
 }
 
